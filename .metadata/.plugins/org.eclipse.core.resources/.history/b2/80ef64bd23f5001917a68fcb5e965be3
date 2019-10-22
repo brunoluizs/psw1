@@ -1,0 +1,73 @@
+package br.edu.udc.guiFrames;
+
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+
+public class JanelaEntrada extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
+	JTextField nome;
+	JPasswordField password;
+
+	public JanelaEntrada() {
+		/* WINDOW CONFIGS */
+		
+		super("Janela com campos de entrada");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(500, 500);
+		
+		setLayout(new FlowLayout());
+		
+				
+		/* NOME */		
+		nome = new JTextField("Digite seu nome");
+		nome.setEditable(true);
+		
+			/* Implementação de classe anônima */
+		nome.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String str = new String(((JTextField)e.getSource()).getText());
+				
+				JOptionPane.showMessageDialog(null, "Olá " + str + ", como vai?");
+			}
+		});
+		add(nome);
+		
+		
+		/* PASSWORD */		
+		add(new JLabel("Digite uma senha:"));
+		password = new JPasswordField(20);
+		password.setToolTipText("Senha Secreta");
+		
+			/* Implementação de classe anônima */
+		password.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String str = new String(((JPasswordField)e.getSource()).getPassword());
+				
+				JOptionPane.showMessageDialog(null, str);
+			}
+		});
+		add(password);
+		
+		
+		/* SEND BUTTON */
+		JButton button = new JButton("Enviar");
+		button.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		});
+	
+		
+		/* SETVISIBLE */
+		setVisible(true);
+	}
+	
+}

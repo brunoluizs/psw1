@@ -1,0 +1,20 @@
+package br.edu.udc.guiFrames;
+
+import java.awt.FlowLayout;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class JanelaEntrada extends JFrame {
+	
+	public JanelaEntrada() {
+		super("Janela com campos de entrada");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(500, 500);
+		
+		setLayout(new FlowLayout());
+		
+		add(new JTextField(10));		
+		
+		setVisible(true);
+	}
+}

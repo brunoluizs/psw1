@@ -1,0 +1,14 @@
+package br.edu.udc.guiFrames;
+
+import java.awt.FlowLayout;
+import javax.swing.JFrame;
+
+public class JanelaEntrada extends JFrame {
+	
+	public JanelaEntrada() {
+		super("Janela com campos de entrada");
+		
+		setLayout(new FlowLayout());
+		setSize(500,500);
+	}
+}

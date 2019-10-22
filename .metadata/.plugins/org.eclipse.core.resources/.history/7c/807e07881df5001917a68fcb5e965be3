@@ -1,0 +1,34 @@
+package br.edu.udc.guiFrames;
+
+import java.awt.FlowLayout;
+import javax.swing.*;
+
+
+public class JanelaEntrada extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
+
+	public JanelaEntrada() {
+		super("Janela com campos de entrada");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(500, 500);
+		
+		setLayout(new FlowLayout());
+		
+		add(new JLabel("Digite algo: "));
+		add(new JTextField(10));
+		
+		add(new JTextField("Digite algo aqui", 20));
+		
+		JTextField textField = new JTextField("Campo não editável");
+		textField.setEditable(false);
+		add(textField);
+		
+		add(new JLabel("Digite uma senha:"));
+		JPasswordField password = new JPasswordField(20);
+		password.setToolTipText("Senha Secreta");
+		add(password);
+		
+		setVisible(true);
+	}
+}

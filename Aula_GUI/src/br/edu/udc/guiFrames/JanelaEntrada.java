@@ -59,7 +59,7 @@ public class JanelaEntrada extends JFrame {
 		
 		/* SEND BUTTON */
 		JButton button = new JButton("Enviar");
-		button.addActionListener(new ActionListener(){
+		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				JOptionPane.showMessageDialog(null, 

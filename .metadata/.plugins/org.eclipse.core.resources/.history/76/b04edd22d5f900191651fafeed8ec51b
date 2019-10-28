@@ -1,0 +1,61 @@
+package guiMouseFrame;
+
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class MouseFrame extends JFrame{
+	private static final long serialVersionUID = 1L;
+	
+	private JPanel mousePanel;
+	
+	public MouseFrame() {
+		super("Tratamento dos eventos de mouse");
+		
+		setSize(500, 500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		/* ÁREA DE USO DO MOUSE */
+		mousePanel = new JPanel();
+		add(mousePanel);
+		mousePanel.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				mousePanel.setBackground(Color.DARK_GRAY);
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				mousePanel.setBackground(Color.WHITE);
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				
+				
+			}
+			
+			
+		});
+		
+		setVisible(true);		
+	}
+}

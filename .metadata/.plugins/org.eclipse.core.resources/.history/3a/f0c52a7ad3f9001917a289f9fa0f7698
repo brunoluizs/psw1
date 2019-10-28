@@ -1,0 +1,8 @@
+package guiMouseFrame;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class MouseFrame extends JFrame{
+
+}

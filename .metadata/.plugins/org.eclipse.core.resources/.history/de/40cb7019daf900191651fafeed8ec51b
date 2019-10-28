@@ -3,7 +3,6 @@ package guiMouseFrame;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,7 +31,7 @@ public class MouseFrame extends JFrame{
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				status.setText(String.format("Click identificado no ponto [%d, %d]", arg0.getX(), arg0.getY() ));
+				status.setText(String.format("Click identificado no ponto [%d, %d]", arg0.getX(), arg0.getY()));
 				
 			}
 
@@ -60,21 +59,6 @@ public class MouseFrame extends JFrame{
 				
 			}
 			
-			
-		});
-		mousePanel.addMouseMotionListener(new MouseMotionListener(){
-
-			@Override
-			public void mouseDragged(MouseEvent arg0) {
-				
-				
-			}
-
-			@Override
-			public void mouseMoved(MouseEvent arg0) {
-				
-				
-			}
 			
 		});
 		

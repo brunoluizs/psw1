@@ -6,3 +6,4 @@ public class Aplicacao {
 		new MouseFrame();
 	}
 }
+

@@ -195,16 +195,16 @@ public class ComandosMouse extends JFrame{
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				/*if (mousePanel.getOpcao() == 1 || mousePanel.getOpcao() == 2 ||  mousePanel.getOpcao() == 4 || mousePanel.getOpcao() == 5){
-					mousePanel.setOriginX(originX);
-					mousePanel.setOriginY(originY);
+				if (mousePanel.getOpcao() == 1 || mousePanel.getOpcao() == 2 || /* mousePanel.getOpcao() == 4 ||*/ mousePanel.getOpcao() == 5){
+					/*mousePanel.setOriginX(originX);
+					mousePanel.setOriginY(originY);*/
 					mousePanel.setRadiusX(radiusX);
 					mousePanel.setRadiusY(radiusY);
 					mousePanel.setRadius((int) Math.abs(r));
 					
 					mousePanel.repaint();	
 				}
-				*/								
+												
 				
 			}
 			
@@ -227,13 +227,6 @@ public class ComandosMouse extends JFrame{
 					double area = Math.PI * r * r;
 							
 					double circ = Math.PI * 2 * r;
-					
-					mousePanel.setRadiusX(radiusX);
-					mousePanel.setRadiusY(radiusY);
-					mousePanel.setRadius((int) Math.abs(r));
-					
-					mousePanel.repaint();
-					
 										
 					message = origin + " - " + String.format("Raio: [%d; %d][%.2f]", radiusX, radiusY, r)  + " - " + 
 							String.format("Area: [%.2f]", area) + " - " + String.format("Circunferencia: [%.2f]", circ);
@@ -252,11 +245,6 @@ public class ComandosMouse extends JFrame{
 					supY = Math.min(originY, radiusY);
 					infX = Math.max(originX, radiusX);
 					infY = Math.max(originY, radiusY);
-					
-					mousePanel.setRadiusX(radiusX);
-					mousePanel.setRadiusY(radiusY);
-					
-					mousePanel.repaint();
 					
 					int area = (infX - supX) * (infY - supY);
 					
@@ -292,11 +280,6 @@ public class ComandosMouse extends JFrame{
 					supY = Math.min(originY, radiusY);
 					infX = Math.max(originX, radiusX);
 					infY = Math.max(originY, radiusY);
-					
-					mousePanel.setRadiusX(radiusX);
-					mousePanel.setRadiusY(radiusY);
-					
-					mousePanel.repaint();
 					
 					int area = (infX - supX) * (infY - supY);
 					

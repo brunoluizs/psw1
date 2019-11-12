@@ -195,16 +195,16 @@ public class ComandosMouse extends JFrame{
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				/*if (mousePanel.getOpcao() == 1 || mousePanel.getOpcao() == 2 ||  mousePanel.getOpcao() == 4 || mousePanel.getOpcao() == 5){
-					mousePanel.setOriginX(originX);
-					mousePanel.setOriginY(originY);
+				if (mousePanel.getOpcao() == 1 || mousePanel.getOpcao() == 2 || /* mousePanel.getOpcao() == 4 ||*/ mousePanel.getOpcao() == 5){
+					/*mousePanel.setOriginX(originX);
+					mousePanel.setOriginY(originY);*/
 					mousePanel.setRadiusX(radiusX);
 					mousePanel.setRadiusY(radiusY);
 					mousePanel.setRadius((int) Math.abs(r));
 					
 					mousePanel.repaint();	
 				}
-				*/								
+												
 				
 			}
 			
@@ -253,11 +253,6 @@ public class ComandosMouse extends JFrame{
 					infX = Math.max(originX, radiusX);
 					infY = Math.max(originY, radiusY);
 					
-					mousePanel.setRadiusX(radiusX);
-					mousePanel.setRadiusY(radiusY);
-					
-					mousePanel.repaint();
-					
 					int area = (infX - supX) * (infY - supY);
 					
 					int perim = ((infX - supX) * 2) + ((infY - supY) * 2);  
@@ -292,11 +287,6 @@ public class ComandosMouse extends JFrame{
 					supY = Math.min(originY, radiusY);
 					infX = Math.max(originX, radiusX);
 					infY = Math.max(originY, radiusY);
-					
-					mousePanel.setRadiusX(radiusX);
-					mousePanel.setRadiusY(radiusY);
-					
-					mousePanel.repaint();
 					
 					int area = (infX - supX) * (infY - supY);
 					

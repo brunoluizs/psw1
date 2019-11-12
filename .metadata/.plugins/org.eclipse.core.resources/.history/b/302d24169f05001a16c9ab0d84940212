@@ -195,16 +195,16 @@ public class ComandosMouse extends JFrame{
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				/*if (mousePanel.getOpcao() == 1 || mousePanel.getOpcao() == 2 ||  mousePanel.getOpcao() == 4 || mousePanel.getOpcao() == 5){
-					mousePanel.setOriginX(originX);
-					mousePanel.setOriginY(originY);
+				if (mousePanel.getOpcao() == 1 || mousePanel.getOpcao() == 2 || /* mousePanel.getOpcao() == 4 ||*/ mousePanel.getOpcao() == 5){
+					/*mousePanel.setOriginX(originX);
+					mousePanel.setOriginY(originY);*/
 					mousePanel.setRadiusX(radiusX);
 					mousePanel.setRadiusY(radiusY);
 					mousePanel.setRadius((int) Math.abs(r));
 					
 					mousePanel.repaint();	
 				}
-				*/								
+												
 				
 			}
 			

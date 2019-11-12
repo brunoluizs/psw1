@@ -1,5 +1,7 @@
 package br.edu.udc.comandosMouse;
 
+/* CONSERTAR: TRIÂNGULO, CLIQUES NÃO PUXADOS PARA LINHA/QUADRADO/CIRCULO (colocar um reset?) */
+
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -24,6 +26,8 @@ public class ComandosMouse extends JFrame{
 	private double r;
 	private int originX, originY;
 	private int radiusX, radiusY;
+	private int pontoAX, pontoAY, pontoBX, pontoBY, pontoCX, pontoCY;
+	private int cliquesTriangulo;
 	
 	/* Getters and Setters */
 	
@@ -64,10 +68,12 @@ public class ComandosMouse extends JFrame{
 	public ComandosMouse() {
 		super("Tratamento dos eventos de mouse");
 		
-		setSize(500, 500);
+		setSize(750, 750);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setLayout(new BorderLayout());
+		
+		message = "";
 		
 		
 		/* Menu Settings */
@@ -84,6 +90,17 @@ public class ComandosMouse extends JFrame{
 		JMenuItem retangulo = new JMenuItem("Retangulo");
 		desenhos.add(retangulo);
 		
+		JMenuItem quadrado = new JMenuItem("Quadrado");
+		desenhos.add(quadrado);
+		
+		JMenuItem ponto = new JMenuItem("Ponto");
+		desenhos.add(ponto);
+		
+		JMenuItem linha = new JMenuItem("Linha");
+		desenhos.add(linha);
+		
+		JMenuItem triangulo = new JMenuItem("Triangulo");
+		desenhos.add(triangulo);		
 
 		/* Mensagens de Rodapé */
 		
@@ -99,8 +116,38 @@ public class ComandosMouse extends JFrame{
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				/* Informações do ponto */
+				if(mousePanel.getOpcao() == 3){
+					mousePanel.setPoint(arg0.getX(), arg0.getY());
 				
-				
+					message = String.format("Ponto na posição [%d; %d]", arg0.getX(), arg0.getY());
+					status.setText(message);
+				}
+				/* Informações do triangulo */
+				if(mousePanel.getOpcao() == 6){
+					if (cliquesTriangulo == 3){
+						pontoAX = arg0.getX();
+						pontoAY = arg0.getY();
+						
+						cliquesTriangulo = 2;
+					}
+					
+					if (cliquesTriangulo == 2){
+						pontoBX = arg0.getX();
+						pontoBY = arg0.getY();
+						
+						cliquesTriangulo = 1;
+					}
+					
+					if (cliquesTriangulo == 1){
+						pontoCX = arg0.getX();
+						pontoCY = arg0.getY();
+												
+						cliquesTriangulo = 3;
+					}
+					
+			
+				}
 			}
 
 			@Override
@@ -125,13 +172,24 @@ public class ComandosMouse extends JFrame{
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				mousePanel.setOriginX(originX);
-				mousePanel.setOriginY(originY);
-				mousePanel.setRadiusX(radiusX);
-				mousePanel.setRadiusY(radiusY);
-				mousePanel.setRadius((int) Math.abs(r));
+				if (mousePanel.getOpcao() == 1 || mousePanel.getOpcao() == 2 || mousePanel.getOpcao() == 4 || mousePanel.getOpcao() == 5){
+					mousePanel.setOriginX(originX);
+					mousePanel.setOriginY(originY);
+					mousePanel.setRadiusX(radiusX);
+					mousePanel.setRadiusY(radiusY);
+					mousePanel.setRadius((int) Math.abs(r));
+				}
 				
-				mousePanel.repaint();
+				else if (mousePanel.getOpcao() == 6){
+					mousePanel.setPontoAX(pontoAX);
+					mousePanel.setPontoAY(pontoAY);
+					mousePanel.setPontoBX(pontoBX);
+					mousePanel.setPontoBY(pontoBY);
+					mousePanel.setPontoCX(pontoCX);
+					mousePanel.setPontoCY(pontoCY);
+				}
+				
+				mousePanel.repaint();					
 				
 			}
 			
@@ -141,29 +199,87 @@ public class ComandosMouse extends JFrame{
 
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
-				radiusX = arg0.getX();
-				radiusY = arg0.getY();
+				/* Informações do círculo */
+				if(mousePanel.getOpcao() == 1){
+					radiusX = arg0.getX();
+					radiusY = arg0.getY();
+					
+					int x = Math.abs(originX - radiusX);
+					int y = Math.abs(originY - radiusY);
+					
+					r = Math.sqrt((x*x) + (y*y));
+			
+					double area = Math.PI * r * r;
+							
+					double circ = Math.PI * 2 * r;
+					
+					message = origin + " - " + String.format("Raio: [%d; %d][%.2f]", radiusX, radiusY, r)  + " - " + 
+							String.format("Area: [%.2f]", area) + " - " + String.format("Circunferencia: [%.2f]", circ);
+					
+					status.setText(message);
+				}
 				
-				int x = Math.abs(originX - radiusX);
-				int y = Math.abs(originY - radiusY);
+				/* Informações do retângulo */
+				if(mousePanel.getOpcao() == 2){
+					radiusX = arg0.getX();
+					radiusY = arg0.getY();
+					
+					int supX, supY, infX, infY;
+					
+					supX = Math.min(originX, radiusX);
+					supY = Math.min(originY, radiusY);
+					infX = Math.max(originX, radiusX);
+					infY = Math.max(originY, radiusY);
+					
+					int area = (infX - supX) * (infY - supY);
+					
+					int perim = ((infX - supX) * 2) + ((infY - supY) * 2);  
 				
-				r = Math.sqrt((x*x) + (y*y));
-		
-				double area = Math.PI * Math.sqrt(r*r);
-						
-				double circ = Math.PI * 2 * r;
+					message = String.format("Pontos: Sup Esq: [%d; %d] / Inf Dir: [%d; %d]", supX, supY, infX, infY) + " - " +
+							String.format("Area: [%d]", area) + " - " + String.format("Perimetro: [%d]", perim);
+				}
 				
-				message = origin + " - " + String.format("Raio: [%d; %d][%.2f]", radiusX, radiusY, r)  + " - " + 
-						String.format("Area: [%.2f]", area) + " - " + String.format("Circunferencia: [%.2f]", circ);
+				/* Informações da linha */
+				if(mousePanel.getOpcao() == 4){
+					radiusX = arg0.getX();
+					radiusY = arg0.getY();
+					
+					message = origin + " - " + String.format("Fim: [%d; %d]", radiusX, radiusY);
+					
+					status.setText(message);
+				}
 				
-				status.setText(message);
+				/* Informações do quadrado */
+				if(mousePanel.getOpcao() == 5){
+					radiusX = arg0.getX();
+					radiusY = arg0.getY();
+					
+					int supX, supY, infX, infY;
+					
+					supX = Math.min(originX, radiusX);
+					supY = Math.min(originY, radiusY);
+					infX = Math.max(originX, radiusX);
+					infY = Math.max(originY, radiusY);
+					
+					int area = (infX - supX) * (infY - supY);
+					
+					int perim = ((infX - supX) * 2) + ((infY - supY) * 2);  
+				
+					message = String.format("Pontos: Sup Esq: [%d; %d] / Inf Dir: [%d; %d]", supX, supY, infX, infY) + " - " +
+							String.format("Area: [%d]", area) + " - " + String.format("Perimetro: [%d]", perim);
+				}
+				
 				
 			}
 
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
-				message = String.format("Mouse na posição [%d; %d]", arg0.getX(), arg0.getY());
-				status.setText(message);
+				String moved = String.format("Mouse na posição [%d; %d]", arg0.getX(), arg0.getY());;
+				
+				if (message.length() > 1)
+					moved = moved + " - " + message;
+				
+				status.setText(moved);
 				
 			}
 			
@@ -188,7 +304,50 @@ public class ComandosMouse extends JFrame{
 			}
 			
 		});
+		
+		ponto.addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mousePanel.setOpcao(3);
+				
+			}
+			
+			
+		});
+
+		linha.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mousePanel.setOpcao(4);
+				
+			}
+			
+			
+		});
+
+		quadrado.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mousePanel.setOpcao(5);
+				
+			}
+			
+			
+		});
+		
+		triangulo.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mousePanel.setOpcao(6);
+				cliquesTriangulo = 3;
+			}
+			
+			
+		});
 		
 		setVisible(true);
 	}
@@ -198,9 +357,80 @@ public class ComandosMouse extends JFrame{
 class Painel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
+	private int pointX, pointY;
 	private int originX, originY, radiusX, radiusY, radius;
+	private int pontoAX, pontoAY, pontoBX, pontoBY, pontoCX, pontoCY;
 	private int opcao;
 	
+	public int getPontoAX() {
+		return pontoAX;
+	}
+
+
+
+	public void setPontoAX(int pontoAX) {
+		this.pontoAX = pontoAX;
+	}
+
+
+
+	public int getPontoAY() {
+		return pontoAY;
+	}
+
+
+
+	public void setPontoAY(int pontoAY) {
+		this.pontoAY = pontoAY;
+	}
+
+
+
+	public int getPontoBX() {
+		return pontoBX;
+	}
+
+
+
+	public void setPontoBX(int pontoBX) {
+		this.pontoBX = pontoBX;
+	}
+
+
+
+	public int getPontoBY() {
+		return pontoBY;
+	}
+
+
+
+	public void setPontoBY(int pontoBY) {
+		this.pontoBY = pontoBY;
+	}
+
+
+
+	public int getPontoCX() {
+		return pontoCX;
+	}
+
+
+
+	public void setPontoCX(int pontoCX) {
+		this.pontoCX = pontoCX;
+	}
+
+
+
+	public int getPontoCY() {
+		return pontoCY;
+	}
+
+
+
+	public void setPontoCY(int pontoCY) {
+		this.pontoCY = pontoCY;
+	}
 	
 	
 	public int getOpcao() {
@@ -211,6 +441,35 @@ class Painel extends JPanel {
 
 	public void setOpcao(int opcao) {
 		this.opcao = opcao;
+	}
+
+	
+	public void setPoint(int pointX, int pointY){
+		this.pointX = pointX;
+		this.pointY = pointY;
+	}
+	
+
+	public int getPointX() {
+		return pointX;
+	}
+
+
+
+	public void setPointX(int pointX) {
+		this.pointX = pointX;
+	}
+
+
+
+	public int getPointY() {
+		return pointY;
+	}
+
+
+
+	public void setPointY(int pointY) {
+		this.pointY = pointY;
 	}
 
 
@@ -305,12 +564,63 @@ class Painel extends JPanel {
 				}
 				break;
 			}
+			/* Ponto */
+			case 3:{
+				g.fillOval(pointX-1, pointY-1, 3, 3);
+				break;
+			}
+			/* Linha */
+			case 4:{
+				g.drawLine(originX, originY, radiusX, radiusY);
+				break;
+			}
+			/* Quadrado */
+			case 5:{
+				if (originX < radiusX){
+					if (originY < radiusY)
+						if (radiusX-originX > radiusY-originY)
+							g.drawRect(originX, originY, radiusX-originX, radiusX-originX);
+						
+						else
+							g.drawRect(originX, originY, radiusY-originY, radiusY-originY);
+					
+					else
+						if (radiusX-originX > originY-radiusY)
+							g.drawRect(originX, radiusY, radiusX-originX, radiusX-originX);
+						
+						else
+							g.drawRect(originX, radiusY, originY-radiusY, originY-radiusY);
+				}
+				else{
+					if (originY < radiusY)
+						if (originX-radiusX > radiusY-originY)
+							g.drawRect(radiusX, originY, originX-radiusX, originX-radiusX);
+						
+						else
+							g.drawRect(radiusX, originY, radiusY-originY, radiusY-originY);
+					
+					
+					else 
+						if (originX-radiusX > originY-radiusY)
+							g.drawRect(radiusX, radiusY, originX-radiusX, originX-radiusX);
+					
+						else
+							g.drawRect(radiusX, radiusY, originY-radiusY, originY-radiusY);
+				}
+			
+				break;
+			}
+			/* Triangulo */
+			case 6:{
+				g.drawLine(pontoAX, pontoAY, pontoBX, pontoBY);
+				g.drawLine(pontoBX, pontoBY, pontoCX, pontoCY);
+				g.drawLine(pontoCX, pontoCY, pontoAX, pontoAY);
+				
+				break;
+			}
 		}
 		
-		
-		
-		//g.drawLine(originX, originY, radiusX, radiusY);
-		//
+
 		
 	}
 }

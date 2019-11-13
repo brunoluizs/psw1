@@ -112,6 +112,7 @@ public class ComandosMouse extends JFrame{
 		
 		mousePanel = new Painel();
 		add(mousePanel, BorderLayout.CENTER);
+		
 		mousePanel.addMouseListener(new MouseListener(){
 
 			@Override
@@ -125,11 +126,25 @@ public class ComandosMouse extends JFrame{
 					message = String.format("Ponto na posição [%d; %d]", arg0.getX(), arg0.getY());
 					status.setText(message);
 				}
+				
 				/* Informações do triangulo */
 				if(mousePanel.getOpcao() == 6){
 					if (cliquesTriangulo == 3){
 						pontoAX = arg0.getX();
 						pontoAY = arg0.getY();
+						pontoBX = arg0.getX();
+						pontoBY = arg0.getY();
+						pontoCX = arg0.getX();
+						pontoCY = arg0.getY();
+						
+						mousePanel.setPontoAX(pontoAX);
+						mousePanel.setPontoAY(pontoAY);
+						mousePanel.setPontoBX(pontoBX);
+						mousePanel.setPontoBY(pontoBY);
+						mousePanel.setPontoCX(pontoCX);
+						mousePanel.setPontoCY(pontoCY);
+											
+						mousePanel.repaint();
 						
 						message = String.format("Ponto A: [%d; %d]", arg0.getX(), arg0.getY());
 						status.setText(message);
@@ -140,6 +155,17 @@ public class ComandosMouse extends JFrame{
 					else if (cliquesTriangulo == 2){
 						pontoBX = arg0.getX();
 						pontoBY = arg0.getY();
+						pontoCX = arg0.getX();
+						pontoCY = arg0.getY();
+						
+						mousePanel.setPontoAX(pontoAX);
+						mousePanel.setPontoAY(pontoAY);
+						mousePanel.setPontoBX(pontoBX);
+						mousePanel.setPontoBY(pontoBY);
+						mousePanel.setPontoCX(pontoCX);
+						mousePanel.setPontoCY(pontoCY);
+											
+						mousePanel.repaint();
 						
 						message = message + " - " + String.format("Ponto B: [%d; %d]", arg0.getX(), arg0.getY());
 						status.setText(message);
@@ -210,6 +236,7 @@ public class ComandosMouse extends JFrame{
 			
 			
 		});
+		
 		mousePanel.addMouseMotionListener(new MouseMotionListener(){
 
 			@Override
@@ -399,178 +426,127 @@ class Painel extends JPanel {
 	private int pontoAX, pontoAY, pontoBX, pontoBY, pontoCX, pontoCY;
 	private int opcao;
 	
+	/* Getters and Setters */
+	
 	public int getPontoAX() {
 		return pontoAX;
 	}
-
-
 
 	public void setPontoAX(int pontoAX) {
 		this.pontoAX = pontoAX;
 	}
 
-
-
 	public int getPontoAY() {
 		return pontoAY;
 	}
-
-
 
 	public void setPontoAY(int pontoAY) {
 		this.pontoAY = pontoAY;
 	}
 
-
-
 	public int getPontoBX() {
 		return pontoBX;
 	}
-
-
 
 	public void setPontoBX(int pontoBX) {
 		this.pontoBX = pontoBX;
 	}
 
-
-
 	public int getPontoBY() {
 		return pontoBY;
 	}
-
-
 
 	public void setPontoBY(int pontoBY) {
 		this.pontoBY = pontoBY;
 	}
 
-
-
 	public int getPontoCX() {
 		return pontoCX;
 	}
-
-
 
 	public void setPontoCX(int pontoCX) {
 		this.pontoCX = pontoCX;
 	}
 
-
-
 	public int getPontoCY() {
 		return pontoCY;
 	}
-
-
 
 	public void setPontoCY(int pontoCY) {
 		this.pontoCY = pontoCY;
 	}
 	
-	
 	public int getOpcao() {
 		return opcao;
 	}
-
-
 
 	public void setOpcao(int opcao) {
 		this.opcao = opcao;
 	}
 
-	
 	public void setPoint(int pointX, int pointY){
 		this.pointX = pointX;
 		this.pointY = pointY;
 	}
-	
 
 	public int getPointX() {
 		return pointX;
 	}
 
-
-
 	public void setPointX(int pointX) {
 		this.pointX = pointX;
 	}
-
-
 
 	public int getPointY() {
 		return pointY;
 	}
 
-
-
 	public void setPointY(int pointY) {
 		this.pointY = pointY;
 	}
-
-
 
 	public int getOriginX() {
 		return originX;
 	}
 
-
-
 	public void setOriginX(int originX) {
 		this.originX = originX;
 	}
-
-
 
 	public int getOriginY() {
 		return originY;
 	}
 
-
-
 	public void setOriginY(int originY) {
 		this.originY = originY;
 	}
-
-
 
 	public int getRadiusX() {
 		return radiusX;
 	}
 
-
-
 	public void setRadiusX(int radiusX) {
 		this.radiusX = radiusX;
 	}
-
-
 
 	public int getRadiusY() {
 		return radiusY;
 	}
 
-
-
 	public void setRadiusY(int radiusY) {
 		this.radiusY = radiusY;
 	}
-
-	
 
 	public int getRadius() {
 		return radius;
 	}
 
-
-
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
 
-
-
+	/* Método paint */
+	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		

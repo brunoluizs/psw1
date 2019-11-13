@@ -1,0 +1,101 @@
+package br.edu.udc.vetorCirculos;
+
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class VetorCirculo extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	
+	private Painel mousePanel;
+	private String message;
+
+	VetorCirculo(){
+		super("Vetor de círculos");
+		
+		setSize(750, 750);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setLayout(new BorderLayout());
+		
+		/* Mensagens de Rodapé */
+		
+		JLabel status = new JLabel("Mensagens de evento do mouse");
+		add(status, BorderLayout.SOUTH);
+		
+		/* Painel de desenho */
+		
+		mousePanel = new Painel();
+		add(mousePanel, BorderLayout.CENTER);
+		
+		mousePanel.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				
+				
+			}
+			
+		});
+		
+		mousePanel.addMouseMotionListener(new MouseMotionListener(){
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				
+				
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				
+				
+			}
+			
+		});
+		
+		
+	
+		setVisible(true);
+	}
+}
+
+
+class Painel extends JPanel {
+	private static final long serialVersionUID = 1L;
+
+	public void paint(Graphics g){
+		super.paintComponent(g);
+	}
+}

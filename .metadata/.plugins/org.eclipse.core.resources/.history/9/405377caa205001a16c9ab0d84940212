@@ -1,0 +1,46 @@
+package br.edu.udc.vetorCirculos;
+
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class VetorCirculo extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	
+	private Painel mousePanel;
+
+	VetorCirculo(){
+		super("Vetor de círculos");
+		
+		setSize(750, 750);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setLayout(new BorderLayout());
+		
+		/* Mensagens de Rodapé */
+		
+		JLabel status = new JLabel("Mensagens de evento do mouse");
+		add(status, BorderLayout.SOUTH);
+		
+		/* Painel de desenho */
+		
+		mousePanel = new Painel();
+		
+		
+	
+		setVisible(true);
+	}
+}
+
+
+class Painel extends JPanel {
+	private static final long serialVersionUID = 1L;
+
+	public void paint(Graphics g){
+		super.paintComponent(g);
+	}
+}

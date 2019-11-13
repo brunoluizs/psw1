@@ -1,0 +1,25 @@
+package br.edu.udc.vetorCirculos;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class VetorCirculo extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+
+	VetorCirculo(){
+		super("Vetor de círculos");
+		
+		setSize(750, 750);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setLayout(new BorderLayout());
+		
+		/* Mensagens de Rodapé */
+		
+		JLabel status = new JLabel("Mensagens de evento do mouse");
+		add(status, BorderLayout.SOUTH);
+	}
+}

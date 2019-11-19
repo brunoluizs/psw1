@@ -1,6 +1,5 @@
 package br.edu.udc.colecao;
 
-
 import java.util.Iterator;
 
 public class ListaEncadeada<E> implements Iterable<E> {

@@ -1,25 +1,36 @@
-package br.edu.udc.pilha;
+package br.edu.udc.fila;
 
 import java.util.Iterator;
 
 import br.edu.udc.colecao.IteradorAbstrato;
 
-public class Pilha<E> implements Iterable<E>{
+public class Fila<E> implements Iterable<E> {
+	
 	/* Classe privativa NoLista */
 
 	private class NoLista {
 		NoLista proximo;
+		NoLista anterior;
 		E obj;
 
 		/* Construtores */
 
 		NoLista(){
 			this.proximo = null;
+			this.anterior = null;
 			this.obj = null;
 		}
 
 		NoLista(E obj){
 			this.proximo = null;
+			this.anterior = null;
+			this.obj = obj;
+		}
+
+		@SuppressWarnings("unused")
+		NoLista(NoLista proximo, NoLista anterior, E obj){
+			this.proximo = proximo;
+			this.anterior = anterior;
 			this.obj = obj;
 		}
 	}
@@ -44,7 +55,11 @@ public class Pilha<E> implements Iterable<E>{
 
 		@Override
 		public boolean anterior() {
-			return false;
+			if(noAtual == null)
+				return false;
+
+			noAtual = noAtual.anterior;
+			return true;
 		}
 
 		@Override
@@ -99,6 +114,9 @@ public class Pilha<E> implements Iterable<E>{
 			if (noAtual != null){
 				noAnterior.proximo = noAtual.proximo;
 
+				noAtual.proximo.anterior = noAtual.anterior;
+				noAtual.anterior.proximo = noAtual.proximo;
+
 				noAtual = null;
 			}
 		}
@@ -107,14 +125,16 @@ public class Pilha<E> implements Iterable<E>{
 
 	/* Objetos */
 
-	NoLista topo;
+	NoLista inicio;
+	NoLista fim;
 
 	int tamanho;
 
 	/* Construtores */
 
-	public Pilha() {
-		topo = null;
+	public Fila() {
+		inicio = null;
+		fim = null;
 
 		tamanho = 0;
 	}
@@ -132,16 +152,16 @@ public class Pilha<E> implements Iterable<E>{
 	}
 
 	public IteradorAbstrato<E> getIteradorInicio() {
-		Iterador it = new Iterador(topo);
+		Iterador it = new Iterador(inicio);
 		return it;
 	}
 	
 	public IteradorAbstrato<E> getIteradorFim() {
-		return new Iterador(topo);
+		return new Iterador(fim);
 	}
 
 	public Iterator<E> iterator(){
-		return new IteradorJava(topo);
+		return new IteradorJava(inicio);
 	}
 
 	public boolean inserir(E obj) {
@@ -151,17 +171,19 @@ public class Pilha<E> implements Iterable<E>{
 		/* Primeira inserção */
 		if (tamanho == 0) { 
 
-			topo = n;
+			inicio = n;
+			fim = n;
 
 			tamanho++;
 			return true;
 		}
 
-		/* Inserção no topo da pilha */
+		/* Inserção no fim da fila */
 		else { 
-			
-			n.proximo = topo;			
-			topo = n;
+
+			n.anterior = fim;
+			fim.proximo = n;
+			fim = n;
 
 			tamanho++;
 			return true;
@@ -169,34 +191,21 @@ public class Pilha<E> implements Iterable<E>{
 
 	}
 
-	public boolean remover() {
-		boolean flag = false; /* Variável para controle de remoção */
+	public E remover() {
 
 		/* Remoção em lista vazia */
 		if (tamanho == 0)
-			return flag;
+			return null;
 
 		/* Busca pela posição do objeto específico */
 		else { 
-			NoLista it = topo;
+			NoLista it = inicio;
 			
-			/* Remoção em lista unitária */
-			if (tamanho == 1) {
-				topo = null;
-			}
-
-			/* Remoção do topo */
-			else if (it == topo) {
-				topo = topo.proximo;
-			}
-
-			tamanho--;
-			flag = true;
+			inicio = inicio.proximo;
+			inicio.anterior = null;
+					
+			return it.obj;
 		}
 
-		return flag;
-
 	}
-
-
 }

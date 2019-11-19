@@ -1,7 +1,5 @@
 package br.edu.udc.comandosMouse;
 
-/* CONSERTAR: TRIÂNGULO, CLIQUES NÃO PUXADOS PARA LINHA/QUADRADO/CIRCULO (colocar um reset?) */
-
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
